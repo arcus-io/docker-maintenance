@@ -1,6 +1,12 @@
 #!/bin/sh
 TITLE=${TITLE:-"Under Maintenance"}
 MESSAGE=${MESSAGE:-"Please try again in a few moments."}
+PORT=${PORT:-}
+
+# update port
+if [ ! -z "$PORT" ] ; then
+    sed -i "s/listen 80.*/listen $PORT;/g" /etc/nginx/nginx.conf
+fi
 
 cat << EOF > /usr/share/nginx/www/index.html
 <html>
